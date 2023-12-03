@@ -4,6 +4,7 @@ import { getList } from "../../libs/microcms";
 import Header from "@/components/ui/Header/Header";
 import Footer from "@/components/ui/Footer/Footer";
 import PaginationControls from "@/components/ui/Pagination/Pagination";
+import ToggleBackground from "@/components/ui/ToggleBackground.tsx/ToggleBackground";
 
 // キャッシュを利用しない場合 0 を設定
 // キャッシュを利用しない場合、常にレンダリングを行うSSRになる
@@ -29,32 +30,34 @@ export default async function BlogLists({
 
   return (
     <>
-      <Header />
-      <div className="max-w-[1000px] mx-auto my-12">
-        <div className="flex flex-col gap-2 text-white">
-          {entries.map((post) => (
-            <Link
-              href={`/blog/${post.id}`}
-              className="flex items-center justify-between text-white py-5 px-3 rounded-lg transition hover:bg-slate-200 hover:text-black"
-              key={post.id}
-            >
-              {post.title.length > 15
-                ? `${post.title.substring(0, 15)}...`
-                : post.title}
-              <p>{new Date(post.createdAt).toLocaleDateString()}</p>
-            </Link>
-          ))}
+      <ToggleBackground className="overflow-y-hidden">
+        <Header />
+        <div className="max-w-[1000px] mx-auto my-12">
+          <div className="flex flex-col gap-2 text-white">
+            {entries.map((post) => (
+              <Link
+                href={`/blog/${post.id}`}
+                className="flex items-center justify-between text-white py-5 px-3 rounded-lg transition hover:bg-slate-200 hover:text-black"
+                key={post.id}
+              >
+                {post.title.length > 15
+                  ? `${post.title.substring(0, 15)}...`
+                  : post.title}
+                <p>{new Date(post.createdAt).toLocaleDateString()}</p>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="w-full fixed bottom-32">
-        <PaginationControls
-          hasNextPage={end < contents.length}
-          hasPrevPage={start > 0}
-        />
-      </div>
-      <div className="w-full fixed bottom-0">
-        <Footer />
-      </div>
+        <div className="w-full fixed bottom-32">
+          <PaginationControls
+            hasNextPage={end < contents.length}
+            hasPrevPage={start > 0}
+          />
+        </div>
+        <div className="w-full fixed bottom-0">
+          <Footer />
+        </div>
+      </ToggleBackground>
     </>
   );
 }

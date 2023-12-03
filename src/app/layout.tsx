@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Provider } from "@/utils/Provider";
+import ToggleBackground from "@/components/ui/ToggleBackground.tsx/ToggleBackground";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className="p-0 m-0 box-border">
-        <Provider>{children}</Provider>
+        <ToggleBackground>
+          <Provider>{children}</Provider>
+        </ToggleBackground>
       </body>
     </html>
   );
