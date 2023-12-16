@@ -14,7 +14,6 @@ const Mask: FC = () => {
               alt="Ishikawa Tokyo"
               width={500}
               height={100}
-              className=""
               priority
             />
           </li>
